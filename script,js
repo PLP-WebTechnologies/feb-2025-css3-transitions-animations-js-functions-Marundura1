@@ -1,0 +1,46 @@
+// Initialize theme from localStorage
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.className = savedTheme;
+    document.getElementById('theme-toggle').textContent = 
+        savedTheme === 'light' ? 'Switch to Dark Theme' : 'Switch to Light Theme';
+}
+
+// Toggle theme and save to localStorage
+function toggleTheme() {
+    const currentTheme = document.body.className === 'light' ? 'dark' : 'light';
+    document.body.className = currentTheme;
+    localStorage.setItem('theme', currentTheme);
+    document.getElementById('theme-toggle').textContent = 
+        currentTheme === 'light' ? 'Switch to Dark Theme' : 'Switch to Light Theme';
+}
+
+// Add a new card with animation
+function addCard() {
+    const titleInput = document.getElementById('card-title');
+    const title = titleInput.value.trim();
+    
+    if (!title) {
+        alert('Please enter a card title');
+        return;
+    }
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+        <img src="https://via.placeholder.com/100?text=Photo" alt="Card Image">
+        <h3>${title}</h3>
+    `;
+    
+    document.getElementById('cards').appendChild(card);
+    titleInput.value = ''; // Clear input
+}
+
+// Event Listeners
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+document.getElementById('add-card').addEventListener('click', addCard);
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+});
